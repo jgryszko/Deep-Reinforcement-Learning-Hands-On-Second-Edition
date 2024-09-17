@@ -39,8 +39,54 @@
     "jupyter.askForKernelRestart": false
   },
 
+  {
+  "name": "ML Codespace",
+  "dockerFile": "./Dockerfile",
+  "context": "..",
+
+  // Set up any necessary environment variables
+  "env": {
+    "JUPYTER_ENABLE_LAB": "yes"
+  },
+
+  // Forward the port JupyterLab will run on
+  "forwardPorts": [8888],
+
+  // Use 'postCreateCommand' to run any extra commands after the container is created
+  "postCreateCommand": "pip install -r requirements.txt",
+
+  // Configure VS Code extensions to install
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",          // Python language support
+        "ms-toolsai.jupyter",        // Jupyter notebook support
+        "ms-toolsai.jupyter-keymap", // Keymap for Jupyter notebooks
+        "ms-toolsai.jupyter-renderers", // Improved rendering for Jupyter notebooks
+        "ms-python.vscode-pylance",  // Pylance for Python IntelliSense
+        "ms-azuretools.vscode-docker", // Docker support in VS Code
+        "esbenp.prettier-vscode",    // Prettier code formatter
+        "ms-toolsai.ml",             // Machine Learning extension
+        "GitHub.copilot"             // GitHub Copilot support for AI code suggestions
+      ]
+    }
+  },
+
+  // Set default settings for JupyterLab and Python in VS Code
+  "settings": {
+    "python.defaultInterpreterPath": "/usr/local/bin/python",
+    "jupyter.jupyterServerType": "local",
+    "jupyter.notebookFileRoot": "/workspace",
+    "jupyter.askForKernelRestart": false
+  },
+
+  // Automatically open the JupyterLab interface when Codespace starts
+  "onCreateCommand": "jupyter lab --ip=0.0.0.0 --no-browser --allow-root"
+}
+
   // Features
   "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}, 
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
 
